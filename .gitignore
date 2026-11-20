@@ -1,4 +1,4 @@
 runs
-jumbledData
-jumbledData_split
+data
+data_split
 yolo26l-cls.pt

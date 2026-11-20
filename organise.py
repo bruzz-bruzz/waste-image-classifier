@@ -102,32 +102,32 @@ def split():
     if os.path.exists(output):
         shutil.rmtree(output)
         os.mkdir(output)
-        os.mkdir(output + '\\' + 'train')
-        os.mkdir(output + '\\' + 'val')
         print("SPLITTING: FOLDER RENEWED")
     else:
         os.mkdir(output)
-        os.mkdir(output + '\\' + 'train')
-        os.mkdir(output + '\\' + 'val')
         print("SPLITTING: FOLDER CREATED")
-    print("CREATING SUBFOLDERS... in JUMBLEDDATA")
-    for val in set(item_to_category.values()):
-        os.mkdir(f'{output}\\{val}')
-        print(f'SUBFOLDER {val} MADE.')
-    print("CREATING SUBFOLDERS DONE...")
+    print("CREATING SUBFOLDERS... in SPLITDATA")
     random.seed(42)
-    images = os.listdir(path)
-    random.shuffle(images)
-    valSize = 0.15
-    splitIndex = int(len(images) * (1 - valSize))
-    valImages = images[splitIndex:]
-    trainImages = images[:splitIndex]
-    for img in valImages:
-        shutil.copy(path + '\\' + img, output + "\\val\\" + img)
-    for img in trainImages:
-        shutil.copy(path + '\\' + img, output + "\\train\\" + img)
+    os.mkdir(f'{output}\\val')
+    os.mkdir(f'{output}\\train')
+    for x in set(item_to_category.values()):
+        os.mkdir(f'{output}\\val\\{x}')
+        os.mkdir(f'{output}\\train\\{x}')
+    for val in set(item_to_category.values()):
+        images = os.listdir(path + '\\' + val)
+        random.shuffle(images)
+        valSize = 0.15
+        splitIndex = int(len(images) * (1 - valSize))
+        valImages = images[splitIndex:]
+        trainImages = images[:splitIndex]
+        for img in valImages:
+            shutil.copy(path + '\\' + val + '\\' + img, f'{output}\\val\\{val}\\' + img)
+        for img in trainImages:
+            shutil.copy(path + '\\' + val + '\\' + img, f'{output}\\train\\{val}\\' + img)
+        print(f'SUBFOLDER {val} DONE IN SPLITTING. {len(valImages)} in /val {len(trainImages)} in /train')
+    print("CREATING SUBFOLDERS DONE...")
     end = time.perf_counter()
-    print(f"SPLITTING: COMPLETED IN {end - start:.4f} SECONDS. {len(valImages)} VAL / {len(trainImages)} TRAIN.")
+    print(f"SPLITTING: COMPLETED IN {end - start:.4f} SECONDS.")
 
 if __name__ == "__main__":
     unpack()

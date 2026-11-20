@@ -7,7 +7,7 @@ def main():
     model = YOLO("yolo26l-cls.pt")  #
 
     results = model.train(
-        data="jumbledData",
+        data="data/train",
         epochs=35,  # Use a fixed epoch count (30–40) since early stopping won't detect overfitting
         imgsz=320,
         batch=64,
