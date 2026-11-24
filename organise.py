@@ -57,7 +57,7 @@ def unpack():
         destPath = f'{output}\\{item_to_category[category]}'
         for sub in ['default','real_world']:
             for img in os.listdir(f'{path}\\{category}\\{sub}'):
-                shutil.copy(f'{path}\\{category}\\{sub}\\{img}',f'{destPath}\\{img}')
+                shutil.copy(f'{path}\\{category}\\{sub}\\{img}',f'{destPath}\\{c}.png')
                 c += 1
     end = time.perf_counter()
     print(f"UNPACKING: COMPLETED IN {end - start:.4f} SECONDS. {c} FILES PROCESSED.")

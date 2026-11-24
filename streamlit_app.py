@@ -8,7 +8,7 @@ IMG_SIZE = 320
 
 st.set_page_config(page_title="Waste Classifier", layout="wide")
 
-# Custom Title styling
+
 st.markdown("<h1 style='text-align: center;'>♻️ Waste Image Classifier</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Upload an image to identify the waste type.</p>", unsafe_allow_html=True)
 st.divider()
@@ -17,18 +17,14 @@ st.divider()
 def load_classifier(weights_path: str) -> YOLO:
     return YOLO(weights_path)
 
-# Sidebar for configuration
-with st.sidebar:
-    st.header("⚙️ Configuration")
-    model_path = st.text_input("Saved model path (.pt or .onnx)", DEFAULT_MODEL_PATH)
-    
+model_path = DEFAULT_MODEL_PATH
 if not Path(model_path).exists():
     st.error(f"Model file not found: `{model_path}`")
     st.stop()
 
 model = load_classifier(model_path)
 
-# Main layout
+
 col1, col2 = st.columns([1, 1], gap="large")
 
 with col1:
@@ -55,18 +51,18 @@ with col2:
         top1_label = names[top1_idx]
         top1_conf = probs.top1conf.item()
 
-        # Display Top Prediction clearly
+        
         st.metric(label="Top Prediction", value=top1_label.capitalize(), delta=f"{top1_conf:.2%}")
         
         st.markdown("---")
         
-        # Display top-5 probabilities
+        
         top_indices = probs.top5
         top_confs = probs.top5conf.tolist()
         
         st.subheader("Top-5 Predictions")
         
-        # Prepare data for display
+        
         data = [{"Class": names[idx].capitalize(), "Confidence": conf} for idx, conf in zip(top_indices, top_confs)]
         
         st.bar_chart(
@@ -81,3 +77,16 @@ with col2:
         )
     else:
         st.info("Please upload an image to see results.")
+st.markdown("---")
+st.markdown(
+    """
+<div style="text-align: center; padding: 20px;">
+    <p>Made by bruzz-bruzz</p>
+    <div style="display: flex; justify-content: center; gap: 20px;">
+        <a href="https://github.com/bruzz-bruzz" target="_blank">GitHub Profile</a>
+        <a href="https://github.com/bruzz-bruzz/waste-image-classifier" target="_blank">GitHub Repository</a>
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
