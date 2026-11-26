@@ -5,18 +5,19 @@ from ultralytics import YOLO
 def main():
     model = YOLO("yolo26l-cls.pt")  
     results = model.train(
-        data="data/train",
-        epochs=35,  
-        imgsz=320,
-        batch=16,          
-        workers=2,         
-        device=0,
-        amp=True,          
-        cache=False,       
-        project="runs/classify",
-        name="yolo26l_cls_320",
-        exist_ok=True,
-    )
+    data="data/train",
+    epochs=35,
+    imgsz=320,
+    batch=64,          # Or use batch=-1 (auto-scales to ~60% VRAM)
+    workers=8,         # Matches your 10-core / 16-thread CPU
+    device=0,
+    amp=True,          # Essential for RTX 50-series Tensor Cores
+    cache="ram",       # Uses your 32GB DDR5 to eliminate disk I/O bottlenecks
+    compile=True,      # PyTorch 2.x graph compilation for extra GPU throughput
+    project="runs/classify",
+    name="yolo26l_cls_320",
+    exist_ok=True,
+)
     
     best_weights = Path(results.save_dir) / "weights" / "best.pt"
 

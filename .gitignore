@@ -3,3 +3,4 @@ data
 data_split
 fullData
 fullData_split
+__pycache__
