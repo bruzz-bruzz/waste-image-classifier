@@ -2,3 +2,4 @@ ultralytics
 Pillow
 streamlit
 pathlib
+opencv-python
