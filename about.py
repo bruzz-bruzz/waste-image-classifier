@@ -2,7 +2,7 @@ import streamlit as st
 
 def get_about_info():
     return {
-        "title": "Waste Image Classifier",
+        "title": "Recyclify",
         "description": """
 This application leverages deep learning to classify various types of waste images. 
 By utilizing the YOLOv8 (You Only Look Once) architecture, the model provides fast and accurate real-time classification.

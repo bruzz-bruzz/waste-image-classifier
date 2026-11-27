@@ -9,7 +9,7 @@ IMG_SIZE = 320
 st.set_page_config(page_title="Waste Classifier", layout="wide")
 
 
-st.markdown("<h1 style='text-align: center;'>♻️ Waste Image Classifier</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>♻️ Recyclify</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Upload an image to identify the waste type.</p>", unsafe_allow_html=True)
 st.divider()
 
